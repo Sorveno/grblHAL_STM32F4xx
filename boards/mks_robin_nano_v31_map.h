@@ -20,11 +20,11 @@
   along with GrblHAL. If not, see <http://www.gnu.org/licenses/>.
 */
 #if N_ABC_MOTORS > 2
-#error "MKS ROBIN-NANO 3.0 supports 5 motors max."
+#error "MKS ROBIN-NANO 3.1 supports 5 motors max."
 #endif
 
 #if TRINAMIC_ENABLE && N_GANGED > 0
-#error "MKS ROBIN-NANO 3.0 does not support ganged motors with Trinamic drivers."
+#error "MKS ROBIN-NANO 3.1 does not support ganged motors with Trinamic drivers."
 #endif
 
 #if IS_NUCLEO_DEVKIT
@@ -41,7 +41,7 @@
 #define SERIAL1_PORT    3   // GPIOB: TX = 10, RX = 11
 #endif
 
-#define BOARD_NAME "MKS ROBIN-NANO 3.0"
+#define BOARD_NAME "MKS ROBIN-NANO 3.1"
 #define BOARD_URL "https://github.com/makerbase-mks/MKS-Robin-Nano-V3.X"
 
 #undef I2C_ENABLE
@@ -50,13 +50,8 @@
 #define I2C1_ALT_PINMAP     // GPIOB, SCL_PIN = 6, SDA_PIN = 7
 
 #if TRINAMIC_ENABLE
-#define HAS_BOARD_INIT
+//#define HAS_BOARD_INIT
 #endif
-
-// If we want to debug, we need to use USART1
-//#if defined(DEBUG) && defined(USB_SERIAL_CDC)
-//#undef USB_SERIAL_CDC
-//#endif
 
 // Define step pulse output pins.
 #define X_STEP_PORT             GPIOE
