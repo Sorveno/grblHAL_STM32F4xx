@@ -1,10 +1,11 @@
 /*
-  mks_robin_nano_v3.0_map.h - driver code for STM32F407 ARM processors
+  mks_robin_nano_v3.1_map.h - driver code for STM32F407 ARM processors
 
   Part of grblHAL
 
   Copyright (c) 2021 qbazd
   Copyright (c) 2023 Terje Io
+  Copyright (c) 2024 Sorveno
 
   GrblHAL is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,6 +20,7 @@
   You should have received a copy of the GNU General Public License
   along with GrblHAL. If not, see <http://www.gnu.org/licenses/>.
 */
+
 #if N_ABC_MOTORS > 2
 #error "MKS ROBIN-NANO 3.1 supports 5 motors max."
 #endif
@@ -27,22 +29,18 @@
 #error "MKS ROBIN-NANO 3.1 does not support ganged motors with Trinamic drivers."
 #endif
 
-#if IS_NUCLEO_DEVKIT
-// When debugging with Nucleo-144
-#define IS_NUCLEO_BOB
-#define SERIAL_PORT    32   // GPIOD: TX = 8, RX = 9
-#define SERIAL1_PORT    2   // GPIOB: TX = 10, RX = 11
-#elif !defined(STM32F407xx) || HSE_VALUE != 8000000
+#if !defined(STM32F407xx) || HSE_VALUE != 8000000
 #error "This board has STM32F407 processor with a 8MHz crystal, select a corresponding build!"
-#else
-#undef EEPROM_ENABLE
-#define EEPROM_ENABLE  32
-#define SERIAL_PORT     1   // GPIOA: TX = 9, RX = 10
-#define SERIAL1_PORT    3   // GPIOB: TX = 10, RX = 11
 #endif
 
 #define BOARD_NAME "MKS ROBIN-NANO 3.1"
 #define BOARD_URL "https://github.com/makerbase-mks/MKS-Robin-Nano-V3.X"
+
+#undef EEPROM_ENABLE
+#define EEPROM_ENABLE  32
+
+#define SERIAL_PORT     1   // GPIOA: TX = 9, RX = 10
+#define SERIAL1_PORT    3   // GPIOB: TX = 10, RX = 11
 
 #undef I2C_ENABLE
 #define I2C_ENABLE      1
@@ -50,7 +48,7 @@
 #define I2C1_ALT_PINMAP     // GPIOB, SCL_PIN = 6, SDA_PIN = 7
 
 #if TRINAMIC_ENABLE
-//#define HAS_BOARD_INIT
+#define HAS_BOARD_INIT
 #endif
 
 // Define step pulse output pins.
@@ -61,7 +59,6 @@
 #define Z_STEP_PORT             GPIOB
 #define Z_STEP_PIN              5                  // Z
 #define STEP_OUTMODE            GPIO_BITBAND
-//#define STEP_PINMODE            PINMODE_OD // Uncomment for open drain outputs
 
 // Define step direction output pins.
 #define X_DIRECTION_PORT        GPIOE
@@ -71,7 +68,6 @@
 #define Z_DIRECTION_PORT        GPIOB
 #define Z_DIRECTION_PIN         4
 #define DIRECTION_OUTMODE       GPIO_BITBAND
-//#define DIRECTION_PINMODE       PINMODE_OD // Uncomment for open drain outputs
 
 // Define stepper driver enable/disable output pin.
 #define X_ENABLE_PORT           GPIOE
@@ -80,7 +76,6 @@
 #define Y_ENABLE_PIN            1
 #define Z_ENABLE_PORT           GPIOB
 #define Z_ENABLE_PIN            8
-//#define STEPPERS_ENABLE_PINMODE PINMODE_OD // Uncomment for open drain outputs
 
 //// Define homing/hard limit switch input pins.
 #define X_LIMIT_PORT            GPIOA
@@ -98,8 +93,8 @@
 #define M3_STEP_PIN             6
 #define M3_DIRECTION_PORT       GPIOD
 #define M3_DIRECTION_PIN        3
-#define M3_LIMIT_PORT           GPIOE
-#define M3_LIMIT_PIN            10
+#define M3_LIMIT_PORT           GPIOC
+#define M3_LIMIT_PIN            4
 #define M3_ENABLE_PORT          GPIOB
 #define M3_ENABLE_PIN           3
 #endif
@@ -119,10 +114,10 @@
 
 #define AUXOUTPUT0_PORT         GPIOA // Spindle PWM, 3D touch
 #define AUXOUTPUT0_PIN          8
-#define AUXOUTPUT1_PORT         GPIOB // Spindle direction, FAN1
-#define AUXOUTPUT1_PIN          1
-#define AUXOUTPUT2_PORT         GPIOA // Spindle enable, HOTBED
-#define AUXOUTPUT2_PIN          0
+#define AUXOUTPUT1_PORT         GPIOC // Spindle direction, FAN1
+#define AUXOUTPUT1_PIN          14
+#define AUXOUTPUT2_PORT         GPIOB // Spindle enable, FAN2
+#define AUXOUTPUT2_PIN          1
 
 // Define driver spindle pins
 #if DRIVER_SPINDLE_ENABLE
@@ -142,26 +137,21 @@
 #define COOLANT_FLOOD_PORT      GPIOE
 #define COOLANT_FLOOD_PIN       5                           // HEATER 1
 #define COOLANT_MIST_PORT       GPIOB
-#define COOLANT_MIST_PIN        1                           // HEAT1
+#define COOLANT_MIST_PIN        0                           // HEATER 2
 
 // Define user-control controls (cycle start, reset, feed hold) input pins.
 #define RESET_PORT              GPIOC
 #define RESET_PIN               0                           // TB
-#define FEED_HOLD_PORT          GPIOC
-#define FEED_HOLD_PIN           1                           // TH1
-#if IS_NUCLEO_DEVKIT
-#define CYCLE_START_PORT        GPIOA
-#define CYCLE_START_PIN         10                          // When debugging with Nucleo-144
-#else
-#define CYCLE_START_PORT        GPIOD
-#define CYCLE_START_PIN         9                           // ???
-#endif
+#define FEED_HOLD_PORT          GPIOE
+#define FEED_HOLD_PIN           11                           // BTN_EN2
+#define CYCLE_START_PORT        GPIOE
+#define CYCLE_START_PIN         13                           // BTN_ENC
 #define CONTROL_INMODE GPIO_BITBAND
 
-#define AUXINPUT0_PORT          GPIOG                       // EXP1 PG4
-#define AUXINPUT0_PIN           6
-#define AUXINPUT1_PORT          GPIOC
-#define AUXINPUT1_PIN           4
+#define AUXINPUT0_PORT          GPIOA                       // MT_DET1
+#define AUXINPUT0_PIN           4
+#define AUXINPUT1_PORT          GPIOE                       // MT_DET2
+#define AUXINPUT1_PIN           6
 
 #if PROBE_ENABLE
 #define PROBE_PORT              AUXINPUT1_PORT
@@ -198,45 +188,43 @@
 
 #ifdef  M3_AVAILABLE
 #define MOTOR_UARTM3_PORT       GPIOD
-#define MOTOR_UARTM3_PIN        4
+#define MOTOR_UARTM3_PIN        9
 #endif
 
 #ifdef  M4_AVAILABLE
 #define MOTOR_UARTM4_PORT       GPIOD
-#define MOTOR_UARTM4_PIN        9
-#endif
-
-#ifdef  M5_AVAILABLE
-#define MOTOR_UARTM5_PORT       GPIOD
-#define MOTOR_UARTM5_PIN        8
+#define MOTOR_UARTM4_PIN        8
 #endif
 
 #endif // TRINAMIC_UART_ENABLE
 
 #if TRINAMIC_SPI_ENABLE
 
-#define TRINAMIC_SPI_PORT       3 // GPIOC, SCK_PIN = 10, MISO_PIN = 12, MOSI_PIN = 11
+//#define TRINAMIC_SPI_PORT       3
 
-#define MOTOR_CSX_PORT          GPIOA
-#define MOTOR_CSX_PIN           15
-#define MOTOR_CSY_PORT          GPIOB
-#define MOTOR_CSY_PIN           8
-#define MOTOR_CSZ_PORT          GPIOB
-#define MOTOR_CSZ_PIN           9
+//software SPI
+#define TRINAMIC_MOSI_PORT          GPIOD
+#define TRINAMIC_MOSI_PIN           14
+#define TRINAMIC_SCK_PORT           GPIOD
+#define TRINAMIC_SCK_PIN            0
+#define TRINAMIC_MISO_PORT          GPIOD
+#define TRINAMIC_MISO_PIN           1
+
+#define MOTOR_CSX_PORT          GPIOD
+#define MOTOR_CSX_PIN           5
+#define MOTOR_CSY_PORT          GPIOD
+#define MOTOR_CSY_PIN           7
+#define MOTOR_CSZ_PORT          GPIOD
+#define MOTOR_CSZ_PIN           4
 
 #ifdef  M3_AVAILABLE
-#define MOTOR_CSM3_PORT         GPIOB
-#define MOTOR_CSM3_PIN          3
+#define MOTOR_CSM3_PORT         GPIOD
+#define MOTOR_CSM3_PIN          9
 #endif
 
 #ifdef  M4_AVAILABLE
-#define MOTOR_CSM4_PORT         GPIOG
-#define MOTOR_CSM4_PIN          15
-#endif
-
-#ifdef  M5_AVAILABLE
-#define MOTOR_CSM5_PORT         GPIOG
-#define MOTOR_CSM5_PIN          12
+#define MOTOR_CSM4_PORT         GPIOD
+#define MOTOR_CSM4_PIN          8
 #endif
 
 #endif // TRINAMIC_SPI_PORT

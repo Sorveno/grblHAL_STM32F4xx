@@ -12,11 +12,11 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "c:/LUKASZ/PROJECTS/grblHAL_STM32F4xx/.pio/build/MKS_Robin_Nano_V31_BL/firmware.elf",
+            "executable": "d:/_PROJEKTY/CNC/grblHAL_STM32F4xx/.pio/build/MKS_Robin_Nano_V31_BL/firmware.elf",
             "projectEnvName": "MKS_Robin_Nano_V31_BL",
-            "toolchainBinDir": "C:/Users/ENV18/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin",
+            "toolchainBinDir": "C:/Users/Lukasz/.platformio/packages/toolchain-gccarmnoneeabi/bin",
             "internalConsoleOptions": "openOnSessionStart",
-            "svdPath": "C:/Users/ENV18/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd",
+            "svdPath": "C:/Users/Lukasz/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd",
             "preLaunchTask": {
                 "type": "PlatformIO",
                 "task": "Pre-Debug"
@@ -26,21 +26,21 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "c:/LUKASZ/PROJECTS/grblHAL_STM32F4xx/.pio/build/MKS_Robin_Nano_V31_BL/firmware.elf",
+            "executable": "d:/_PROJEKTY/CNC/grblHAL_STM32F4xx/.pio/build/MKS_Robin_Nano_V31_BL/firmware.elf",
             "projectEnvName": "MKS_Robin_Nano_V31_BL",
-            "toolchainBinDir": "C:/Users/ENV18/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin",
+            "toolchainBinDir": "C:/Users/Lukasz/.platformio/packages/toolchain-gccarmnoneeabi/bin",
             "internalConsoleOptions": "openOnSessionStart",
-            "svdPath": "C:/Users/ENV18/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd"
+            "svdPath": "C:/Users/Lukasz/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "c:/LUKASZ/PROJECTS/grblHAL_STM32F4xx/.pio/build/MKS_Robin_Nano_V31_BL/firmware.elf",
+            "executable": "d:/_PROJEKTY/CNC/grblHAL_STM32F4xx/.pio/build/MKS_Robin_Nano_V31_BL/firmware.elf",
             "projectEnvName": "MKS_Robin_Nano_V31_BL",
-            "toolchainBinDir": "C:/Users/ENV18/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin",
+            "toolchainBinDir": "C:/Users/Lukasz/.platformio/packages/toolchain-gccarmnoneeabi/bin",
             "internalConsoleOptions": "openOnSessionStart",
-            "svdPath": "C:/Users/ENV18/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd",
+            "svdPath": "C:/Users/Lukasz/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd",
             "loadMode": "manual"
         }
     ]
