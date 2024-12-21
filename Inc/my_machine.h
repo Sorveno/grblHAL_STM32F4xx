@@ -41,29 +41,18 @@
 //#define BOARD_FLEXI_HAL           // F446 CNC board
 //#define BOARD_LONGBOARD32         // F412 Sienci SLB
 //#define BOARD_STM32F401_UNI       // F401 CNC board
-//#define BOARD_MKS_ROBIN_NANO_30   // F407 based 3D Printer board - untested!
+#define BOARD_MKS_ROBIN_NANO_31   // F407 based 3D Printer board
 //#define BOARD_MKS_EAGLE           // F407 based 3D Printer board
 //#define BOARD_MY_MACHINE          // Add my_machine_map.h before enabling this!
 
-// WARNING: BOARD_BTT_SKR_20 may fry your Trinamic drivers due to bad hardware design.
-//          The risk goes away if Q1 (HY1904C2) is shorted between source (S) and drain (D).
-//          See this issue for details: https://github.com/bigtreetech/SKR-2/issues/63
-//          Note: grblHAL does not check for reversed drivers.
 
-#if defined(NUCLEO_F401) || defined(NUCLEO_F411) || defined(NUCLEO_F446)
-#define IS_NUCLEO_DEVKIT 64
-#elif defined(NUCLEO144_F446)
-#define IS_NUCLEO_DEVKIT 144
-#else
 #define IS_NUCLEO_DEVKIT 0
-#endif
 
 // Configuration
 // Uncomment to enable.
 
-#if IS_NUCLEO_DEVKIT != 64 && !defined(USB_SERIAL_CDC) // The Nucleo boards has an off-chip UART to USB interface.
 #define USB_SERIAL_CDC            1 // Serial communication via native USB.
-#endif
+
 //#define BLUETOOTH_ENABLE        2 // Set to 2 for HC-05 module. Requires and claims one auxiliary input pin.
 // Spindle selection:
 // Up to four specific spindle drivers can be instantiated at a time
@@ -97,7 +86,7 @@
 //#define EMBROIDERY_ENABLE       1 // Embroidery plugin. To be completed.
 //#define PPI_ENABLE              1 // Laser PPI plugin. To be completed.
 //#define LASER_COOLANT_ENABLE    1 // Laser coolant plugin. To be completed.
-//#define TRINAMIC_ENABLE      2130 // Trinamic TMC2130 stepper driver support.
+#define TRINAMIC_ENABLE      2130 // Trinamic TMC2130 stepper driver support.
 //#define TRINAMIC_ENABLE      5160 // Trinamic TMC5160 stepper driver support.
 //#define TRINAMIC_ENABLE      2209 // Trinamic TMC2209 stepper driver support.
 //#define TRINAMIC_ENABLE      2660 // Trinamic TMC2660 stepper driver support.
@@ -112,7 +101,7 @@
 //#define ESTOP_ENABLE            0 // When enabled only real-time report requests will be executed when the reset pin is asserted.
                                     // Note: if left commented out the default setting is determined from COMPATIBILITY_LEVEL.
 //#define MCP3221_ENABLE       0x4D // Enable MCP3221 I2C ADC input with address 0x4D (0b01001101).
-//#define RGB_LED_ENABLE          2 // Set to 1 to enable strip length settings $536 and $537, set to 2 to also enable M150 LED strip control.
+#define RGB_LED_ENABLE          2 // Set to 1 to enable strip length settings $536 and $537, set to 2 to also enable M150 LED strip control.
 //#define PWM_SERVO_ENABLE        1 // Enable M280 PWM servo support, requires at least one PWM capable auxiliary output.
 //#define BLTOUCH_ENABLE          1 // Enable M401/M402 BLTouch support. Requires and claims one auxiliary PWM servo output.
 //#define EVENTOUT_ENABLE         1 // Enable binding events (triggers) to control auxiliary outputs.
@@ -123,7 +112,7 @@
 // Optional control signals:
 // These will be assigned to aux input pins. Use the $pins command to check which pins are assigned.
 // NOTE: If not enough pins are available assignment will silently fail.
-//#define PROBE_ENABLE            0 // Default enabled, remove comment to disable probe input.
+#define PROBE_ENABLE            0 // Default enabled, remove comment to disable probe input.
 //#define SAFETY_DOOR_ENABLE      1
 //#define MOTOR_FAULT_ENABLE      1
 //#define MOTOR_WARNING_ENABLE    1
@@ -149,34 +138,8 @@
 //#define Z_GANGED_LIM_MAX    1
 //
 
-#ifdef _WIZCHIP_
-#define ETHERNET_ENABLE 1
-#endif
+#define DEFAULT_RGB_STRIP0_LENGTH	8        // param $536 - Setting_RGB_StripLengt0
+#define DEFAULT_RGB_STRIP1_LENGTH	8        // param $537 - Setting_RGB_StripLengt1
 
-#if ETHERNET_ENABLE || WEBUI_ENABLE
-#define TELNET_ENABLE       1 // Telnet daemon - requires Ethernet streaming enabled.
-#define WEBSOCKET_ENABLE    1 // Websocket daemon - requires Ethernet streaming enabled.
-//#define MDNS_ENABLE         1 // mDNS daemon.
-//#define SSDP_ENABLE         1 // SSDP daemon - requires HTTP enabled.
-//#define MQTT_ENABLE         1 // MQTT client API, only enable if needed by plugin code.
-#if SDCARD_ENABLE  || WEBUI_ENABLE
-//#define FTP_ENABLE         1 // Ftp daemon - requires SD card enabled.
-//#define HTTP_ENABLE         1 // http daemon - requires SD card enabled.
-//#define WEBDAV_ENABLE       1 // webdav protocol - requires http daemon and SD card enabled.
-#endif
 
-// The following symbols have the default values as shown, uncomment and change as needed.
-//#define NETWORK_HOSTNAME        "grblHAL"
-//#define NETWORK_IPMODE          1 // 0 = static, 1 = DHCP, 2 = AutoIP
-//#define NETWORK_IP              "192.168.5.1"
-//#define NETWORK_GATEWAY         "192.168.5.1"
-//#define NETWORK_MASK            "255.255.255.0"
-//#define NETWORK_FTP_PORT        21
-//#define NETWORK_TELNET_PORT     23
-//#define NETWORK_HTTP_PORT       80
-#if HTTP_ENABLE
-//#define NETWORK_WEBSOCKET_PORT  81
-#else
-//#define NETWORK_WEBSOCKET_PORT  80
-#endif
-#endif
+

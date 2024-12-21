@@ -49,14 +49,7 @@
 #define I2C_PORT        1
 #define I2C1_ALT_PINMAP     // GPIOB, SCL_PIN = 6, SDA_PIN = 7
 
-#if TRINAMIC_ENABLE
-#define HAS_BOARD_INIT
-#endif
-
 #define NEOPIXEL_GPO
-#define LED_PORT                GPIOD // rail LED strip1
-#define LED_PIN                 11
-
 #define LED_PORT                GPIOB // rail LED strip1 (PW_OFF)
 #define LED_PIN                 2
 //#define LED1_PORT                GPIOA // rail LED strip2 (3D_TOUCH)
@@ -185,6 +178,10 @@
 #define SPI_PORT                3 // GPIOC, SCK_PIN = 10, MISO_PIN = 11, MOSI_PIN = 12 (SPI3)
 #endif
 
+#if TRINAMIC_ENABLE
+//#define HAS_BOARD_INIT
+#endif
+
 #if TRINAMIC_UART_ENABLE
 
 #undef TRINAMIC_UART_ENABLE
@@ -209,11 +206,14 @@
 
 #endif // TRINAMIC_UART_ENABLE
 
+
 #if TRINAMIC_SPI_ENABLE
 
 //#define TRINAMIC_SPI_PORT       3
+#define TRINAMIC_SOFTSPI        //software SPI
 
-//software SPI
+#ifdef TRINAMIC_SOFTSPI
+
 #define TRINAMIC_MOSI_PORT          GPIOD
 #define TRINAMIC_MOSI_PIN           14
 #define TRINAMIC_SCK_PORT           GPIOD
@@ -236,6 +236,8 @@
 #ifdef  M4_AVAILABLE
 #define MOTOR_CSM4_PORT         GPIOD
 #define MOTOR_CSM4_PIN          8
+#endif
+
 #endif
 
 #endif // TRINAMIC_SPI_PORT

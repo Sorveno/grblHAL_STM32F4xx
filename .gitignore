@@ -27,6 +27,8 @@ $RECYCLE.BIN/
 # Build folder
 build
 .pio/
+Debug*/
+Release*/
 
 #
 # =========================

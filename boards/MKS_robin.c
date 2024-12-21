@@ -1,6 +1,6 @@
 #include "driver.h"
 
-#if defined(BOARD_MKS_ROBIN_NANO_31) 
+#if defined(BOARD_MKS_ROBIN_NANO_31xx) 
 
 #if TRINAMIC_SPI_ENABLE
 
