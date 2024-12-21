@@ -29,6 +29,10 @@
 #error "This board has a STM32F407 or STM32F429 processor with a 8MHz crystal, select a corresponding build!"
 #endif
 
+#define NEOPIXEL_GPO
+#define LED_PORT                GPIOC // rail LED strip
+#define LED_PIN                 9
+
 #define BOARD_NAME "BTT SKR-2"
 #define BOARD_URL "https://github.com/bigtreetech/SKR-2"
 
@@ -129,11 +133,11 @@
 #if DRIVER_SPINDLE_ENABLE
 #define SPINDLE_ENABLE_PORT         AUXOUTPUT2_PORT
 #define SPINDLE_ENABLE_PIN          AUXOUTPUT2_PIN
-#if DRIVER_SPINDLE_ENABLE & SPINDLE_PWM
+#if DRIVER_SPINDLE_PWM_ENABLE
 #define SPINDLE_PWM_PORT            AUXOUTPUT0_PORT
 #define SPINDLE_PWM_PIN             AUXOUTPUT0_PIN
 #endif
-#if DRIVER_SPINDLE_ENABLE & SPINDLE_DIR
+#if DRIVER_SPINDLE_DIR_ENABLE
 #define SPINDLE_DIRECTION_PORT      AUXOUTPUT1_PORT
 #define SPINDLE_DIRECTION_PIN       AUXOUTPUT1_PIN
 #endif
